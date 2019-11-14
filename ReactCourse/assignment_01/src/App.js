@@ -34,34 +34,29 @@ class App extends Component {
     }
 
     stateUpdater = (event) => {
+        // event in this case is an 'onChange' associated with any text input in the UserInput component
         this.setState({
             username: event.target.value
         })
     };
 
   render(){
-      const style = {
-          backgroundColor: 'white',
-          font: 'inherit',
-          border: '1px solid blue',
-          padding: '8px',
-          cursor: 'pointer'
-      };
+
     return (
         <div className="App">
             <UserInput
-                style={
-                    style
-                }
                 defaultname = {this.defaultname}
                 username = {this.state.username}
-            changeUserName = {this.stateUpdater}
+                // binds the stateUpdater function to the onChange event in the UserInput component
+                changeUserName = {this.stateUpdater}
+                // changeUserName_alt = { () => this.stateUpdater(args)} // first alternative with arg parsing by creating arrow function
+                // changeUserName_alt = {this.stateUpdater().bind(this,args)} // second alternative using .bind to attach this object and pass args
             />
             <UserOutput username={this.state.username}/>
             <UserOutput username={this.state.username}/>
             <button
-                style={style}
-                onClick={this.buttonHandler}>Revert
+                onClick={this.buttonHandler}>
+                Revert
             </button>
         </div>
     );
